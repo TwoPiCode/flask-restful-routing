@@ -153,4 +153,4 @@ class Route():
         for child in self._children:
             # TODO Wrap children to capture the parent elem
             # child.register_routes(api, )
-            child.register_routes(api, plural_endpoint + '.', single_path)
+            child.register_routes(api, plural_endpoint + '-', single_path)
