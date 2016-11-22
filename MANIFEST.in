@@ -1,1 +1,3 @@
 include LICENSE README.rst setup.cfg VERSION flask_restful_routing.py
+global-exclude *.py[co]
+

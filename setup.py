@@ -17,10 +17,11 @@ def get_version():
             return v.strip()
     return v.decode('UTF-8').strip()
 
+
 try:
-        version = get_version()
+    version = get_version()
 except Exception as e:
-        version = '0.0.0-dev'
+    version = '0.0.0-dev'
 
 setup(
     name='flask-restful-routing',

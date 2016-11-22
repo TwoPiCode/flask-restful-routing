@@ -1,5 +1,5 @@
 test:
-	flake8 --exclude=venv
+	flake8
 	python setup.py test	
 
 install_precommit: 
