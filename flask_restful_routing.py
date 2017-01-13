@@ -65,33 +65,39 @@ class RootRoute():
 
 class Route():
     def __init__(self, endpoint, route, plural=None, single=None,
-                 children=None, single_type='int', loader=None):
+                 children=None, single_type='int', loader=None,
+                 ignore_plural_check=False):
         """Represents a RESTFUL route in an API.
 
         :param endpoint: The name of the endpoint. Used to generated url
-                         arguments
-        :param route: The path at which the endpoints are mounted
-        :param plural: The flask-restful view which is used for plural access
-                       (ie, access to /users)
-        :param single: The flask-restful view which is used for single access
-                       (ie, access to /users/<int:user_id>)
+                        arguments
+        :param route:   The path at which the endpoints are mounted
+        :param plural:  The flask-restful view which is used for plural access
+                        (ie, access to /users)
+        :param single:  The flask-restful view which is used for single access
+                        (ie, access to /users/<int:user_id>)
         :param children: a list of any child routes
         :param single_type: (str) The type used to build the route for access
-                            to the singular resource.
-        :param loader: A loader to parse url params provided to the endpoint
-                       via the given path. Can be specified on the singular
-                       resource as `restful_loader`.
+                        to the singular resource.
+        :param loader:  A loader to parse url params provided to the endpoint
+                        via the given path. Can be specified on the singular
+                        resource as `restful_loader`.
 
-                       A plural endpoint will inherit the singular parent's
-                       loaders if specified.
+                        A plural endpoint will inherit the singular parent's
+                        loaders if specified.
+        :param ignore_plural_check: If True, will skip checking the plurality
+                        of the endpoint field (ending with an 's') for valid
+                        endpoint names such as 'ios', 'bus', 'lens' etc.
         """
+
         if children is None:
             children = []
 
-        if endpoint.lower().endswith('s'):
-            print("Endpoint must be singular.")
-            raise ValueError("Endpoints must be singular. Passed endpoint {} "
-                             "with route {}".format(endpoint, route))
+        if not ignore_plural_check:
+            if endpoint.lower().endswith('s'):
+                print("Endpoint must be singular.")
+                raise ValueError("Endpoints must be singular. Passed endpoint"
+                                 " {} with route {}".format(endpoint, route))
 
         self._children = children
         self._endpoint = endpoint

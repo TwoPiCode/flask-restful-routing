@@ -1,26 +1,13 @@
+
 import os
 from setuptools import setup
 
+version = '1.0.4'
+
 readme_path = os.path.join(os.path.dirname(
     os.path.abspath(__file__)),
-    'README.rst',
-)
+    'README.rst')
 long_description = open(readme_path).read()
-
-
-def get_version():
-    version_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
-        'VERSION')
-    v = open(version_path).read()
-    if type(v) == str:
-            return v.strip()
-    return v.decode('UTF-8').strip()
-
-try:
-        version = get_version()
-except Exception as e:
-        version = '0.0.0-dev'
 
 setup(
     name='flask-restful-routing',
